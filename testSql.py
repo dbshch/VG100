@@ -26,4 +26,4 @@ def queryUser(u_name):
     return reslist
 
 def queryPlant(pid):
-    return {'p_name':'myplant', 'pic':'0.jpg', 'status':0, 'ip':"192.168.2.100"}
+    return {'p_name':'myplant', 'pic':'0.jpg', 'status':0, 'ip':"192.168.1.8"}
