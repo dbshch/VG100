@@ -44,5 +44,21 @@ def sendCmd(ip, key, cmd):
     data = data.decode('utf-8')
     return data
 
+
+def listen():
+    i = 0
+    while True:
+        address = ('0.0.0.0', 19000)
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.bind(address)
+        print(i)
+        i += 1
+        flg = 1
+        while flg:
+            data, addr = s.recvfrom(2048)
+            if data:
+                s.close()
+                return addr[0]
+
 if __name__ == "__main__":
     print(requestDetail('127.0.0.1', 1))

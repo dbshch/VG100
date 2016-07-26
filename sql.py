@@ -54,4 +54,10 @@ def updatStat(pid, new):
 
 
 def insert(u_name, pid, ip, p_name):
-    return
+    cnx = mysql.connector.connect(**config)
+    cursor = cnx.cursor()
+    op = ("INSERT INTO plants VALUES (  )")
+    cursor.execute(op)
+    cnx.commit()
+    cursor.close()
+    cnx.close()

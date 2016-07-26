@@ -52,7 +52,7 @@ class detailHandler(tornado.web.RequestHandler):
 
 class setMore(tornado.web.RequestHandler):
     def get(self, u_name):
-        self.render("setMore.html")
+        self.render("setMore.html", u_name=u_name)
 
 
 class takePicHandler(tornado.web.RequestHandler):
@@ -61,6 +61,14 @@ class takePicHandler(tornado.web.RequestHandler):
         key = int(key)
         getPic().tcpclient(pinfo['ip'], key)
         self.render("pic.html", key=key)
+
+
+class setHandler(tornado.web.RequestHandler):
+    def get(self):
+        p_name = self.get_argument('name')
+        u_name = self.get_argument('u_name')
+        ip = listen()
+        insert(u_name, ip, p_name)
 
 
 def make_app():
@@ -73,7 +81,9 @@ def make_app():
         (r"/detail/takepic/([0-9]+)", takePicHandler),
         (r"/set/([a-zA-Z0-9]+)", setMore),
         (r"/cmd", cmdHandler),
+        (r"/set", setHandler),
     ], **settings)
+
 
 
 if __name__ == "__main__":

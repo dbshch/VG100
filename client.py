@@ -21,6 +21,7 @@ def listen():
         flg = 1
         while flg:
             data, addr = s.recvfrom(2048)
+            print(addr)
             if data:
                 s.close()
                 return data

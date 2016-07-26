@@ -10,7 +10,14 @@
 <body>
     <h1>To set more plants</h1>
     <div>
+        <form action="/set" method="get">
+The name of the plant:
+<p><input type="text" name="name" /></p>
+            <p><input style="display:none" value="{{u_name}}" type="text" name="u_name" /></p>
+            <input type="submit" value="Submit">
 
+</form>
+        Please submit the plant name and start the installer in 5 minutes, and then the installer will automaticly set the plant for you.
     </div>
 </body>
 </html>

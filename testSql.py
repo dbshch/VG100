@@ -27,3 +27,7 @@ def queryUser(u_name):
 
 def queryPlant(pid):
     return {'p_name':'myplant', 'pic':'0.jpg', 'status':0, 'ip':"192.168.1.8"}
+
+
+def insert(u_name, pid, ip, p_name):
+    return
