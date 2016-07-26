@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+</head>
+
+<a>
+    <h1>{{ title }}</h1>
+    <h2>These are your plants:</h2><a href="set/{{ u_name }}"/>Set more plants of yours</a><br>
+    <div>
+        <ul>
+            {% for i in range(len(items)) %}
+            <li>
+                {{ items[i]['p_name'] }}<br>
+            </li>
+
+                <img src="{{static_url("pics/"+items[i]['pic'])}}" />
+                <a href="detail/{{ items[i]['key'] }}">See detail</a>
+            {% end %}
+        </ul>
+    </div>
+
+</body>
+
+</html>

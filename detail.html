@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>The detail of your plant</title>
+    <meta charset="UTF-8">
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<body>
+    <h1>Your Plant: {{p_name}}</h1>
+    <div>
+        The status of your plant is: {{ status }}<br>
+        <img src="{{static_url("pics/"+pic)}}" /><br>
+        {% for i in data %}
+            <li>
+                {{i}}:{{ data[i] }}<br>
+            </li>
+            {% end %}
+        <a href="takepic/{{key}}" target=_blank>Get the current picture</a>
+    </div>
+</body>
+</html>
