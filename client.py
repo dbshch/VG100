@@ -1,6 +1,6 @@
 import socket
 import re
-from multiprocessing import Process, Manager, Array, Value
+from multiprocessing import Process, Manager, Queue
 
 
 def send(msg, data):
@@ -33,20 +33,25 @@ def netService(a, cmd):
         data = listen()
         print(data.decode("utf-8")[0])
         if data.decode("utf-8")[0] == 'd':
-            send('{"a": ' + chr(a[0]) + ', "b": 2}', data)
+            send('{"a": ' + a[0] + ', "b": 2}', data)
         else:
             send("a", data)
 
 
-def add(a, cmd):
+def add(l, cmd):
+    l.append('a')
     while True:
-        print('h')
+        l[0]='5'
+
+
 
 if __name__ == "__main__":
-    a = Array('i', [ord('3')])
-    cmd = Array('i',[0,0,0,0])
-    p = Process(target=netService, args=(a, cmd))
-    q = Process(target=add, args=(a, cmd))
+    q = Queue()
+    m = Manager()
+    cmd='1'
+    l = m.list()
+    p = Process(target=netService, args=(l, cmd))
+    q = Process(target=add, args=(l, cmd))
     p.start()
     q.start()
     p.join()
