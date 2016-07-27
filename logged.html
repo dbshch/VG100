@@ -5,12 +5,62 @@
     <meta charset="UTF-8">
     <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style type="text/css">
 
+*
+		{
+        background: lightcyan;
+        text-align: center;
+		margin:0;
+		padding:0;
+		border:0;
+		}
+    h1{
+        margin:0;
+		padding:30px;
+		border:0;
+        background: #a2ffff;
+    }
+
+    h2{
+        margin:0;
+		padding:30px;
+		border:0;
+    }
+    li{
+        font: bold 30px "Times New Roman";
+        margin:0;
+		padding:10px 0 10px 0;
+		border:0;
+    }
+        button, a
+        {
+	border:none;
+	display:inline-block;
+	outline:0;
+	padding:6px 16px;
+	margin-bottom:10px;
+	vertical-align:middle;
+	overflow:hidden;
+	text-decoration:none;
+	color:#fff;
+	background-color:#F88E8B;
+	text-align:center;
+	transition:.2s ease-out;
+	cursor:pointer;
+	white-space:nowrap;
+	box-shadow:0px 1px 3px rgba(0,0,0,0.12), 0px 1px 2px rgba(0,0,0,0.24);
+        }
+        button:hover, a:hover{
+	background-color:#F45551;
+	color:#fff;
+	text-decoration:none;
+    </style>
 </head>
 
-<a>
+<body>
     <h1>{{ title }}</h1>
-    <h2>These are your plants:</h2><a href="set/{{ u_name }}"/>Set more plants of yours</a><br>
+    <h2>These are your plants:</h2><a href="set/{{ u_name }}"/>Set more plants of yours</a>
     <div>
         <ul>
             {% for i in range(len(items)) %}
@@ -19,6 +69,7 @@
             </li>
 
                 <img src="{{static_url("pics/"+items[i]['pic'])}}" />
+                </br>
                 <a href="detail/{{ items[i]['key'] }}">See detail</a>
             {% end %}
         </ul>

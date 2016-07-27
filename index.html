@@ -2,6 +2,70 @@
 <html lang="zh-CN">
 
 <head>
+
+    <style type="text/css">
+
+*
+		{
+        background: lightcyan;
+        text-align: center;
+		}
+    h1{
+        margin:0;
+		padding:30px;
+		border:0;
+        background: #a2ffff;
+    }
+
+    h2{
+        margin:0;
+		padding:30px;
+		border:0;
+    }
+    li{
+        margin:0;
+		padding:10px 0 10px 0;
+		border:0;
+    }
+
+form{
+			 font: bold 24px "Times New Roman";
+			padding:10px 0 10px 0;
+		}button, a, input#sub
+        {
+	border:none;
+	display:inline-block;
+	outline:0;
+	padding:6px 16px;
+	margin-bottom:10px;
+	vertical-align:middle;
+	overflow:hidden;
+	text-decoration:none;
+	color:#fff;
+	background-color:#F88E8B;
+	text-align:center;
+	transition:.2s ease-out;
+	cursor:pointer;
+	white-space:nowrap;
+	box-shadow:0px 1px 3px rgba(0,0,0,0.12), 0px 1px 2px rgba(0,0,0,0.24);
+    font: 20px "Times New Roman";
+        }
+        button:hover, a:hover, input#sub:hover {
+			background-color: #F45551;
+			color: #fff;
+			text-decoration: none;
+			font: 20px "Times New Roman";
+		}
+		input#txt{
+            margin: 10px;
+		    padding:5px 0 5px 0;
+            boder: 1px solid #ccc;
+			text-align: left;
+            background-color: #fff;
+            font: 15px "Times New Roman";
+		}
+
+    </style>
     <meta charset="UTF-8">
     <title>Welcome</title>
     <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
@@ -10,12 +74,14 @@
 
 <body>
 
-    <h1>Welcome!</h1>
+    <div id="header">
+        <h1>Welcome to Intelligent Plant!</h1>
+    </div>
     <br>
-    <div>
+    <div id="form">
         <form action="logged" method="get">
-            Your name: <input type="text" name="name" />
-            <input type="submit" value="Sign in" />
+            Your name: <br><input id="txt" type="text" placeholder="Your name" name="name" /><br>
+            <input id="sub" type="submit" value="Sign in" /><br>
             <a href="signup">Sign up</a>
         </form>
     </div>
