@@ -26,7 +26,7 @@ def queryUser(u_name):
     return reslist
 
 def queryPlant(pid):
-    return {'p_name':'myplant', 'pic':'0.jpg', 'status':0, 'ip':"192.168.1.8"}
+    return {'p_name':'myplant', 'pic':'0.jpg', 'status':0, 'ip':"127.0.0.1"}
 
 
 def insert(u_name, pid, ip, p_name):

@@ -5,7 +5,7 @@ from multiprocessing import Process, Manager, Queue
 
 def send(msg, data):
     i = 0
-    addr = ('192.168.1.8', 18000 + int(re.findall(r'[0-9]+', data.decode('utf-8'))[0]))
+    addr = ('127.0.0.1', 18000 + int(re.findall(r'[0-9]+', data.decode('utf-8'))[0]))
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.sendto(msg.encode(), addr)
     s.close()

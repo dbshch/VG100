@@ -9,6 +9,9 @@
 		{
         background: lightcyan;
         text-align: center;
+		margin:0;
+		padding:0;
+		border:0;
 		}
     h1{
         margin:0;
@@ -17,6 +20,9 @@
         background: #a2ffff;
     }
 
+    img{
+        width: 40%;
+    }
     h2{
         margin:0;
 		padding:30px;
@@ -82,7 +88,8 @@ form{
         <form action="logged" method="get">
             Your name: <br><input id="txt" type="text" placeholder="Your name" name="name" /><br>
             <input id="sub" type="submit" value="Sign in" /><br>
-            <a href="signup">Sign up</a>
+            <a href="signup">Sign up</a><br>
+            <img src="{{static_url("pics/model.jpg")}}" />
         </form>
     </div>
 
