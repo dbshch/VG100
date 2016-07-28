@@ -9,11 +9,15 @@ class getPic():
         clientSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         clientSock.connect((ip, 9527))
 
-        sendDataLen = clientSock.send(("get the pic of "+str(key)).encode())
-        recvData = clientSock.recv(262144)
+        sendDataLen = clientSock.send((str(key)).encode())
+
+
 
         file = open("./static/temp/temp_"+str(key)+".jpg",'wb')
-        file.write(recvData)
+        recvData = clientSock.recv(1024)
+        while recvData:
+            file.write(recvData)
+            recvData = clientSock.recv(1024)
         file.close()
         clientSock.close()
 
