@@ -5,7 +5,7 @@ from multiprocessing import Process, Manager, Queue
 
 def send(msg, data):
     i = 0
-    addr = ('127.0.0.1', 18000 + int(re.findall(r'[0-9]+', data.decode('utf-8'))[0]))
+    addr = (data[0], 18000 + int(re.findall(r'[0-9]+', data[1].decode('utf-8'))[0]))
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.sendto(msg.encode(), addr)
     s.close()
@@ -23,16 +23,18 @@ def listen():
         while flg:
             data, addr = s.recvfrom(2048)
             print(addr)
+            d=[addr[0]]
             if data:
                 s.close()
-                return data
+                d.append(data)
+                return d
 
 
 def netService(a, cmd):
     while True:
         data = listen()
-        print(data.decode("utf-8")[0])
-        if data.decode("utf-8")[0] == 'd':
+        print(data[1].decode("utf-8")[0])
+        if data[1].decode("utf-8")[0] == 'd':
             send('{"a": ' + a[0] + ', "b": 2}', data)
         else:
             send("a", data)
