@@ -16,8 +16,8 @@ class NetServer(object):
             l[7] = int(recvData)
             while l[8] == 0:
                 pass
-
-            pic = open("D:/p2/cam/0.jpg", "rb")
+            l[8] = 0
+            pic = open("./pics/pic" + recvData, "rb")
             snd = pic.read(960)
             while snd:
                 sendDataLen = clientSock.send(snd)

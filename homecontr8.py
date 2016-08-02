@@ -1,21 +1,19 @@
 #!/usr/bin/python
 import RPi.GPIO as GPIO
-
-GPIO.setmode(GPIO.BCM)
 import time
-import signal
 import atexit
 import smbus
+import os
 import sqlite3
 
 
 def prog(a):
+    GPIO.setmode(GPIO.BCM)
     tstatus = 1
     gstatus = 1
     wstatus = 1
 
-    n = 1
-    while n == 1:
+    while True:
         error_id = 0
         while error_id == 0:
             pin = 18
@@ -229,3 +227,8 @@ def prog(a):
                 GPIO.output(channel3, GPIO.HIGH)
                 tstatus = 1
             a[6] = 1
+
+        if a[7] > 0:
+            os.system("raspistill - o ./pics/pic%d.jpg - t 2000" % a[7])
+            a[7] = 0
+            a[8] = 1
