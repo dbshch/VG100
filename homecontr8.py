@@ -69,6 +69,8 @@ def prog(a):
 
             if check == tmp:
                 print("temperature :", temperature, "*C, humidity :", humidity, "%")
+                a[0] = temperature
+                a[1] = humidity
                 error_id = 1
             else:
                 print("try again")
@@ -86,6 +88,7 @@ def prog(a):
         print(data1)
         print("luminosity" + str((data1[1] + 256 * data1[0]) / 1.2) + "lx")
         data2 = (data1[1] + 256 * data1[0]) / 1.2
+        a[3] = data2
 
         # soilsensor
         m = 0
@@ -109,6 +112,7 @@ def prog(a):
         if m == 2:
             print("dryplus")
             dry_id = "dryplus"
+        a[2] = m
 
         # insert database
 

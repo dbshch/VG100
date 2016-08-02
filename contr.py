@@ -37,13 +37,15 @@ def netService(a):
         flg = data[1].decode("utf-8")[0]
         print(flg)
         if flg == 'd':
-            send('{"a": ' + a[0] + ', "b": 2}', data)
-        elif flg=='w':
-            a[5]=1
-        elif flg=='a':
-            a[6]=1
-        elif flg=='l':
-           a[4]=1
+            dry = ['Not dry', 'Dry', 'Too dry']
+            post = '{"Temperature":%d,"Humidity":%d,"Dry Status":%s,"Light":%d}' % (a[0], a[1], dry[a[2]], a[3])
+            send(post, data)
+        elif flg == 'w':
+            a[5] = 1
+        elif flg == 'a':
+            a[6] = 1
+        elif flg == 'l':
+            a[4] = 1
         else:
             send("a", data)
 
