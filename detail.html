@@ -21,15 +21,15 @@ xmlhttp.onreadystatechange=function()
   }
     if (op==1) {
         if (cmd == "water") {
-            obj.innerHTML = "Water is enough";
+            obj.innerHTML = "It is enough";
             obj.onclick=function () {loadXMLDoc(this, 'water', 0);};
         }
         else if (cmd=="light"){
-            obj.innerHTML = "It is too bright";
+            obj.innerHTML = "It is enough";
             obj.onclick=function () {loadXMLDoc(this, 'light', 0);};
         }
         else{
-            obj.innerHTML = "It is too cold";
+            obj.innerHTML = "It is enough";
             obj.onclick=function () {loadXMLDoc(this, 'air', 0);};
         }
 
@@ -117,16 +117,43 @@ xmlhttp.send();
     <div>
         <h2>The status of your plant is: {{ status }}</h2>
         <img src="{{static_url("pics/"+pic)}}" /><br>
-        {% for i in data %}
+        <div id="status">
             <li>
-                {{i}}:{{ data[i] }}<br>
-
-
+                Temperature: {{data['Temperature']}}<br>
+                {% if data['Temperature'] < 30 %}
+                I'm comfortable. :)<br>
+                <button id="air" type="button" onclick="loadXMLDoc(this, 'air', 1)">Give your more air</button><br>
+                {% else %}
+                It's a bit hot and I'm cooling down the temperature by myself :)
+                {% end %}
             </li>
-            {% end %}
-        <button id="water" type="button" onclick="loadXMLDoc(this, 'water', 1)">Need some more water</button></br>
-        <button id="light" type="button" onclick="loadXMLDoc(this, 'light', 1)">I want light</button><br>
-        <button id="air" type="button" onclick="loadXMLDoc(this, 'air', 1)">I want more air</button><br>
+            <li>
+                Light: {{data['Light']}}<br>
+                {% if data['Light'] > 3000 %}
+                I'm comfortable<br>
+                <button id="light" type="button" onclick="loadXMLDoc(this, 'light', 1)">Give me more light</button><br>
+                {% else %}
+                It's a bit dark and I've turned on the lights. :)
+                {% end %}
+            </li>
+            <li>
+                Humidity: {{data['Humidity']}}
+            </li>
+            <li>
+                Dry Status: {{data['Dry Status']}}
+                {% if data['Dry Status'] == 'Dry' %}
+                <br>I'm thirsty!!<br>
+                <button id="water" type="button" onclick="loadXMLDoc(this, 'water', 1)">Get me some more water</button></br>
+                {% end %}
+                {% if data['Dry Status'] == 'Too dry' %}
+                <br>I'm dying of thirst!!<br>
+                I've taken care of my self.
+                {% end %}
+            </li>
+        </div>
+
+
+
         <a href="takepic/{{key}}" target=_blank>Get the current picture</a>
     </div>
 </body>

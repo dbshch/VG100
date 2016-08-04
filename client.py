@@ -35,15 +35,15 @@ def netService(a, cmd):
         data = listen()
         print(data[1].decode("utf-8")[0])
         if data[1].decode("utf-8")[0] == 'd':
-            send('{"a": ' + a[0] + ', "b": 2}', data)
+            dry = ['Not dry', 'Dry', 'Too dry']
+            send('{"Temperature":%d,"Humidity":%d,"Dry Status":"%s","Light":%d}' % (a[0], a[1], dry[a[2]], a[3]), data)
         else:
             send("a", data)
 
 
 def add(l, cmd):
-    l.append('a')
-    while True:
-        l[0]='5'
+    for i in range(4):
+        l.append(i)
 
 
 

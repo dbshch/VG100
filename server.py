@@ -61,4 +61,4 @@ def listen():
                 return addr[0]
 
 if __name__ == "__main__":
-    print(requestDetail('127.0.0.1', 1))
+    print(requestDetail('192.168.1.12', 1))

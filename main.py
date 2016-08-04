@@ -42,12 +42,11 @@ class cmdHandler(tornado.web.RequestHandler):
 
 class detailHandler(tornado.web.RequestHandler):
     status = ['Good', 'Well', 'Not bad', 'Poor', 'Urgent']
-
     def get(self, key):
         pinfo = queryPlant(key)
         data = json.loads(requestDetail(pinfo['ip'], int(key)))
-        self.render("detail.html", key=key, pic=pinfo['pic'], p_name=pinfo['p_name'],
-                    status=self.status[pinfo['status']], data=data)
+        self.render("detail_new.html", key=key, pic=pinfo['pic'], p_name=pinfo['p_name'],
+                    status=self.status[pinfo['status']], data=data, name=pinfo['u_name'])
 
 
 class setMore(tornado.web.RequestHandler):
@@ -71,6 +70,19 @@ class setHandler(tornado.web.RequestHandler):
         insert(u_name, ip, p_name)
 
 
+class talkHandler(tornado.web.RequestHandler):
+    def get(self):
+        key = self.get_argument('key')
+        pinfo = queryPlant(key)
+        data = json.loads(requestDetail(pinfo['ip'], int(key)))
+        txt = self.get_argument('txt')
+        txt.replace('%20', ' ')
+        if txt.find("light") > -1:
+            self.write("The light is: "+str(data['Light']))
+        else:
+            self.write("Sorry. I don't know what you mean. :<")
+
+
 def make_app():
     settings = {"static_path": os.path.join(os.path.dirname(__file__), "static")}
     return tornado.web.Application([
@@ -82,6 +94,7 @@ def make_app():
         (r"/set/([a-zA-Z0-9]+)", setMore),
         (r"/cmd", cmdHandler),
         (r"/set", setHandler),
+        (r"/detail/talk", talkHandler),
     ], **settings)
 
 

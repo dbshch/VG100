@@ -30,10 +30,11 @@ def queryUser(u_name):
 def queryPlant(key):
     cnx = mysql.connector.connect(**config)
     cursor = cnx.cursor()
-    qry = ("SELECT p_name, pic, status, ip FROM plants WHERE id = '" + key + "'")
+    qry = ("SELECT p_name, pic, status, ip, u_name FROM plants WHERE id = '" + key + "'")
     cursor.execute(qry)
     res={}
     for (p_name, pic, status, ip) in cursor:
+        res['u_name']=u_name
         res['p_name']=p_name
         res['pic']=pic
         res['status']=status
