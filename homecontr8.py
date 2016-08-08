@@ -134,16 +134,20 @@ def prog(a):
         if temperature > 30 and tstatus == 1:
             GPIO.output(channel3, GPIO.LOW)
             tstatus = 0
+            a[9] = 1
         if temperature < 20 and tstatus == 0:
             GPIO.output(channel3, GPIO.HIGH)
             tstatus = 1
+            a[9] = 0
 
         if data2 < 200 and gstatus == 1:
             GPIO.output(channel4, GPIO.LOW)
             gstatus = 0
+            a[11] = 1
         if data2 > 4000 and gstatus == 0:
             GPIO.output(channel4, GPIO.HIGH)
             gstatus = 1
+            a[11] = 0
 
         if dry_id == "dryplus" and wstatus == 1:
             atexit.register(GPIO.cleanup)
@@ -159,6 +163,7 @@ def prog(a):
                 p.ChangeDutyCycle(0)
                 time.sleep(0.2)
             wstatus = 0
+            a[10] = 1
 
         if dry_id == "nodry" and wstatus == 0:
             atexit.register(GPIO.cleanup)
@@ -166,21 +171,23 @@ def prog(a):
             GPIO.setup(servo_pin, GPIO.OUT, initial=False)
             p = GPIO.PWM(servo_pin, 50)
             p.start(0)
-            time.sleep(2)
             for i in range(181, 0, -10):
                 p.ChangeDutyCycle(2.5 + 10 * i / 180)
                 time.sleep(0.02)
                 p.ChangeDutyCycle(0)
                 time.sleep(0.2)
             wstatus = 1
+            a[10] = 0
 
         if a[4] == 1:
             if gstatus == 1:
                 GPIO.output(channel4, GPIO.LOW)
                 gstatus = 0
+                a[11] = 1
             else:
                 GPIO.output(channel4, GPIO.HIGH)
                 gstatus = 1
+                a[11] = 0
             a[4] = 0
 
         if a[5] == 1:
@@ -190,7 +197,6 @@ def prog(a):
                 GPIO.setup(servo_pin, GPIO.OUT, initial=False)
                 p = GPIO.PWM(servo_pin, 50)
                 p.start(0)
-                time.sleep(2)
 
                 for i in range(0, 181, 10):
                     p.ChangeDutyCycle(2.5 + 10 * i / 180)
@@ -198,29 +204,31 @@ def prog(a):
                     p.ChangeDutyCycle(0)
                     time.sleep(0.2)
                 wstatus = 0
+                a[10] = 1
 
             else:
                 atexit.register(GPIO.cleanup)
                 servo_pin = 13
                 GPIO.setup(servo_pin, GPIO.OUT, initial=False)
-                p = GPIO.PWM(servo_pin, 50)
-                p.start(0)
-                time.sleep(2)
+                p = GPIO.PWM
                 for i in range(181, 0, -10):
                     p.ChangeDutyCycle(2.5 + 10 * i / 180)
                     time.sleep(0.02)
                     p.ChangeDutyCycle(0)
                     time.sleep(0.2)
                 wstatus = 1
+                a[10] = 0
             a[5] = 0
 
         if a[6] == 1:
             if tstatus == 1:
                 GPIO.output(channel3, GPIO.LOW)
                 tstatus = 0
+                a[9] = 1
             else:
                 GPIO.output(channel3, GPIO.HIGH)
                 tstatus = 1
+                a[9] = 0
             a[6] = 0
 
         if a[7] > 0:

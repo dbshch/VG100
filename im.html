@@ -19,14 +19,20 @@
                 obj = obj.next();
             });
         }
+        function func() {
+            var t = $("#inp").val();
+            obj.after("<p style='text-align: right'>"+t+"<img src=\"{{static_url("pics/head.jpg")}}\" /></p>");
+            obj = obj.next();
+            t = t.replace(/ /g, '%20');;
+            snd_txt(t);
+        }
         $(document).ready(function () {
             obj = $("#txt");
-            $("button").click(function () {
-                var t = $("#inp").val();
-                obj.after("<p style='text-align: right'>"+t+"<img src=\"{{static_url("pics/head.jpg")}}\" /></p>");
-                obj = obj.next();
-                t = t.replace(/ /g, '%20');;
-                snd_txt(t);
+            $("#snd").click(function (){func();});
+            $("#inp").keydown(function(e){
+                if(e.keyCode==13){
+                    func();
+                }
             });
         });
     </script>
@@ -38,7 +44,7 @@
     <p id="txt"><img src="{{static_url("pics/"+pic)}}" />Hi! {{name}}!</p>
 </div>
 <div id="u_input" align="center">
-    <br><p>What you want to talk to your plant?: <br><input type="text" id="inp" value="Type your words">
+    <br><p>What you want to talk to your plant?: <br><input type="text" id="inp" value="">
         <button id="snd">Send</button>
     </p>
 </div>

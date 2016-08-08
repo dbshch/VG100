@@ -38,7 +38,7 @@ def netService(a):
         print(flg)
         if flg == 'd':
             dry = ['Not dry', 'Dry', 'Too dry']
-            post = '{"Temperature":%d,"Humidity":%d,"Dry Status":"%s","Light":%d}' % (a[0], a[1], dry[a[2]], a[3])
+            post = '{"Temperature":%d,"Humidity":%d,"Dry Status":"%s","Light":%d,"t":%d,"w":%d,"l":%d}' % (a[0], a[1], dry[a[2]], a[3], a[9], a[10], a[11])
             send(post, data)
         elif flg == 'w':
             a[5] = 1
@@ -53,7 +53,7 @@ def netService(a):
 
 if __name__ == "__main__":
     m = Manager()
-    l = m.list([0, 0, 0, 0, 0, 0, 0, 0, 0])
+    l = m.list([0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0])
     p = Process(target=netService, args=(l,))
     q = Process(target=prog, args=(l,))
     pp = Process(target=NetServer().tcpServer, args=(l,))
