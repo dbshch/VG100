@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style type="text/css">
+        p {
+            margin: 0;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <script>
+        var obj;
+        function snd_txt(t) {
+            $.get("talk?txt=" + t + "&key={{key}}", function (data, status) {
+                obj.after("<p><img src=\"{{static_url("pics/"+pic)}}\" />"+data+"</p>");
+                obj = obj.next();
+            });
+        }
+        $(document).ready(function () {
+            obj = $("#txt");
+            $("button").click(function () {
+                var t = $("#inp").val();
+                obj.after("<p style='text-align: right'>"+t+"<img src=\"{{static_url("pics/head.jpg")}}\" /></p>");
+                obj = obj.next();
+                t = t.replace(/ /g, '%20');;
+                snd_txt(t);
+            });
+        });
+    </script>
+    <meta charset="UTF-8">
+    <title> IM </title>
+</head>
+<body>
+<div id="mesg">
+    <p id="txt"><img src="{{static_url("pics/"+pic)}}" />Hi! {{name}}!</p>
+</div>
+<div id="u_input" align="center">
+    <br><p>What you want to talk to your plant?: <br><input type="text" id="inp" value="Type your words">
+        <button id="snd">Send</button>
+    </p>
+</div>
+</body>
+</html>

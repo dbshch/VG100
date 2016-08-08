@@ -2,20 +2,7 @@
 <html lang="zh-CN">
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js">
 </script>
-<script>
-    function snd_txt (t) {
-        $.get("talk?txt="+t+"&key={{key}}", function (data, status) {
-            $("#txt").text(data);
-        });
-    };
-    $(document).ready(function () {
-        $("button").click(function () {
-            var t = $("#inp").val();
-            t = t.replace(/ /g, '%20')
-            snd_txt(t);
-        });
-    });
-</script>
+
 <head>
     <title>The detail of your plant</title>
     <meta charset="UTF-8">
@@ -90,14 +77,7 @@
     <h2>The status of your plant is: {{ status }}</h2>
     <img src="{{static_url("pics/"+pic)}}" /><br>
     <div id="talk">
-        <div id="plant">
-            <span id="txt">Hi! {{name}}!</span>
-        </div>
-        <div id="u_input">
-            <p>What you want to talk to your plant?: <br><input type="text" id="inp" value="Type your words">
-                <button id="snd">Send</button>
-            </p>
-        </div>
+        <iframe src="/im?key={{ key }}" width="70%" height="500" frameborder="0"></iframe>
 
     </div>
 </div>

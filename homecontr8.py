@@ -4,7 +4,6 @@ import time
 import atexit
 import smbus
 import os
-import sqlite3
 
 
 def prog(a):
@@ -114,11 +113,7 @@ def prog(a):
 
         # insert database
 
-        conn = sqlite3.connect('homefl.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO envir(tem,hum,light,water)VALUES(?,?,?,?)", (temperature, humidity, data2, dry_id))
-        conn.commit()
-        conn.close()
+
 
         # relay on off
 
@@ -226,7 +221,7 @@ def prog(a):
             else:
                 GPIO.output(channel3, GPIO.HIGH)
                 tstatus = 1
-            a[6] = 1
+            a[6] = 0
 
         if a[7] > 0:
             os.system("raspistill - o ./pics/pic%d.jpg - t 2000" % a[7])

@@ -34,7 +34,7 @@ class cmdHandler(tornado.web.RequestHandler):
         ky = self.get_argument('key')
         pinfo = queryPlant(ky)
         a = sendCmd(pinfo['ip'], int(ky), com)
-        if a =="a":
+        if a == "a":
             self.write("Succeed")
         else:
             self.write("Somethin wrong")
@@ -42,6 +42,7 @@ class cmdHandler(tornado.web.RequestHandler):
 
 class detailHandler(tornado.web.RequestHandler):
     status = ['Good', 'Well', 'Not bad', 'Poor', 'Urgent']
+
     def get(self, key):
         pinfo = queryPlant(key)
         data = json.loads(requestDetail(pinfo['ip'], int(key)))
@@ -70,6 +71,13 @@ class setHandler(tornado.web.RequestHandler):
         insert(u_name, ip, p_name)
 
 
+class im_handler(tornado.web.RequestHandler):
+    def get(self):
+        key = self.get_argument('key')
+        pinfo = queryPlant(key)
+        self.render("im.html", key=key, name=pinfo['u_name'], pic=pinfo['pic'])
+
+
 class talkHandler(tornado.web.RequestHandler):
     def get(self):
         key = self.get_argument('key')
@@ -78,7 +86,7 @@ class talkHandler(tornado.web.RequestHandler):
         txt = self.get_argument('txt')
         txt.replace('%20', ' ')
         if txt.find("light") > -1:
-            self.write("The light is: "+str(data['Light']))
+            self.write("The light is: " + str(data['Light']))
         else:
             self.write("Sorry. I don't know what you mean. :<")
 
@@ -94,9 +102,9 @@ def make_app():
         (r"/set/([a-zA-Z0-9]+)", setMore),
         (r"/cmd", cmdHandler),
         (r"/set", setHandler),
-        (r"/detail/talk", talkHandler),
+        (r"/talk", talkHandler),
+        (r"/im", im_handler)
     ], **settings)
-
 
 
 if __name__ == "__main__":

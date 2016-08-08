@@ -42,11 +42,12 @@ def netService(a):
             send(post, data)
         elif flg == 'w':
             a[5] = 1
+            send("a", data)
         elif flg == 'a':
             a[6] = 1
+            send("a", data)
         elif flg == 'l':
             a[4] = 1
-        else:
             send("a", data)
 
 
