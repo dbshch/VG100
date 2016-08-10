@@ -11,6 +11,7 @@ def prog(a):
     tstatus = 1
     gstatus = 1
     wstatus = 1
+    dt = 0.05
 
     while True:
         error_id = 0
@@ -19,7 +20,6 @@ def prog(a):
             data = []
             j = 0
 
-            time.sleep(1)
             GPIO.setup(pin, GPIO.OUT)
             GPIO.output(pin, GPIO.LOW)
             time.sleep(0.02)
@@ -155,13 +155,10 @@ def prog(a):
             GPIO.setup(servo_pin, GPIO.OUT, initial=False)
             p = GPIO.PWM(servo_pin, 50)
             p.start(0)
-            time.sleep(2)
 
-            for i in range(0, 181, 10):
+            for i in range(0, 181, 5):
                 p.ChangeDutyCycle(2.5 + 10 * i / 180)
-                time.sleep(0.02)
-                p.ChangeDutyCycle(0)
-                time.sleep(0.2)
+                time.sleep(dt)
             wstatus = 0
             a[10] = 1
 
@@ -171,11 +168,9 @@ def prog(a):
             GPIO.setup(servo_pin, GPIO.OUT, initial=False)
             p = GPIO.PWM(servo_pin, 50)
             p.start(0)
-            for i in range(181, 0, -10):
+            for i in range(181, 0, -5):
                 p.ChangeDutyCycle(2.5 + 10 * i / 180)
-                time.sleep(0.02)
-                p.ChangeDutyCycle(0)
-                time.sleep(0.2)
+                time.sleep(dt)
             wstatus = 1
             a[10] = 0
 
@@ -198,11 +193,9 @@ def prog(a):
                 p = GPIO.PWM(servo_pin, 50)
                 p.start(0)
 
-                for i in range(0, 181, 10):
+                for i in range(0, 181, 5):
                     p.ChangeDutyCycle(2.5 + 10 * i / 180)
-                    time.sleep(0.02)
-                    p.ChangeDutyCycle(0)
-                    time.sleep(0.2)
+                    time.sleep(dt)
                 wstatus = 0
                 a[10] = 1
 
@@ -210,12 +203,10 @@ def prog(a):
                 atexit.register(GPIO.cleanup)
                 servo_pin = 13
                 GPIO.setup(servo_pin, GPIO.OUT, initial=False)
-                p = GPIO.PWM
-                for i in range(181, 0, -10):
+                p = GPIO.PWM(servo_pin, 50)
+                for i in range(181, 0, -5):
                     p.ChangeDutyCycle(2.5 + 10 * i / 180)
-                    time.sleep(0.02)
-                    p.ChangeDutyCycle(0)
-                    time.sleep(0.2)
+                    time.sleep(dt)
                 wstatus = 1
                 a[10] = 0
             a[5] = 0
@@ -232,6 +223,6 @@ def prog(a):
             a[6] = 0
 
         if a[7] > 0:
-            os.system("raspistill - o ./pics/pic%d.jpg - t 2000" % a[7])
+            os.system("raspistill -o ./pics/pic%d.jpg -t 2000" % a[7])
             a[7] = 0
             a[8] = 1

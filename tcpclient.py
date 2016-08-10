@@ -7,7 +7,7 @@ import socket
 class getPic():
     def tcpclient(self, ip, key):
         clientSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        clientSock.connect((ip, 9527))
+        clientSock.connect((ip, 15000))
 
         sendDataLen = clientSock.send((str(key)).encode())
 

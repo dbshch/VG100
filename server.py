@@ -26,7 +26,7 @@ def requestDetail(ip, key):
 def sendCmd(ip, key, cmd):
     addr = (ip, 19000)  # send to the 19000 port in the arduino
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    msg = cmd;
+    msg = cmd+str(key)
     s.sendto(msg.encode(), addr)
     s.close()
 
